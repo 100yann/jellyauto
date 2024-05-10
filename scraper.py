@@ -47,10 +47,26 @@ time.sleep(1)
 
 in_progress_category = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/header/nav/ul/li[3]/h2/a')
 in_progress_category.click()
-time.sleep(5)
+time.sleep(8)
 
-orders_container = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[1]/div')
-orders_container.click()
-orders_container.send_keys(Keys.PAGE_DOWN)
-orders_container.send_keys(Keys.PAGE_DOWN)
-orders_container.send_keys(Keys.PAGE_DOWN)
+# add filters to filter the orders
+filters = driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/section/section/main/div/div/div[1]/section/div[1]/div[2]').click()
+
+editors = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/div/div[1]/input')
+editors_list = ['Patriot Bytyqi', 'Hani Sinno', 'Betim Mehani', 'Stoyan Kolev']
+
+for i in editors_list:
+    editors.send_keys(i)
+    editors.send_keys(Keys.ENTER)
+    time.sleep(1)
+
+# Scroll to bottom of page so all orders are loaded
+orders_container = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[1]/div/div/div/div/div/table/tbody')
+action = webdriver.ActionChains(driver)
+for i in range(0, 3):
+    action.move_to_element(orders_container)
+    action.perform()
+    time.sleep(2)
+
+
+
