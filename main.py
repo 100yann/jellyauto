@@ -28,10 +28,10 @@ def populate_doc():
     for month in MONTHS:
         worksheet_name = f'{month} {curr_year}'
         try:
-            curr_worksheet = sheet.worksheet(worksheet_name)
+            worksheet = sheet.worksheet(worksheet_name)
         except gspread.exceptions.WorksheetNotFound:
             sheet.add_worksheet(title=worksheet_name, rows=50, cols=12)
-            curr_worksheet = sheet.worksheet(worksheet_name)
+
 
 curr_worksheet = sheet.worksheet(f'{curr_month} {curr_year}')
 
@@ -54,4 +54,3 @@ def display_total_videos():
         curr_worksheet.update_acell(f'{chr(ord(column)+1)}1', SAMPLE_DATA[editor]['TOTAL'])
 
 
-update_tracker()
