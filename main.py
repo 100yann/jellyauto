@@ -14,11 +14,11 @@ sheet = client.open_by_key(sheet_id)
 
 MONTHS = ['May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 EDITORS = {'Hani': 'A', 'Patriot': 'D', 'Betim': 'G', 'Stoyan': 'J'}
-
+PRODUCTIVITY_HEADERS = ['Ready to edit', 'Ongoing edit', 'review/re-edit', 'AB Test', 'TOTAL']
 SAMPLE_DATA = {'Betim': {'AB Test': 4, 'Ongoing edit': 2, 'review/re-edit': 1, 'Ready to edit': 4, 'TOTAL': 11}, 
                'Patriot': {'AB Test': 1, 'Ready to edit': 3, 'Ongoing edit': 4, 'review/re-edit': 1, 'TOTAL': 9}, 
                'Hani': {'review/re-edit': 3, 'Ongoing edit': 4, 'Ready to edit': 3, 'TOTAL': 10, 'AB Test': 0},
-               'Stoyan': {'TOTAL': 1}
+               'Stoyan': {'review/re-edit': 3, 'Ongoing edit': 4, 'Ready to edit': 3, 'TOTAL': 10, 'AB Test': 0}
                }
 
 
@@ -36,7 +36,11 @@ tracker_worksheet = sheet.worksheet('Tracker')
 row = 2
 
 for editor, column in EDITORS.items():
-    tracker_worksheet.update(range_name=f'A{row}:F{row}', values=[[editor, *SAMPLE_DATA[editor].values()]], raw=True,)
+    starting_col = 65 # ASCII for letter A
+    tracker_worksheet.update_acell(f'{chr(starting_col)}{row}', value=editor)
+    for col in PRODUCTIVITY_HEADERS:
+        starting_col += 1
+        tracker_worksheet.update_acell(f'{chr(starting_col)}{row}', value=SAMPLE_DATA[editor][col])
     row += 1
 
 
