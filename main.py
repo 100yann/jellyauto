@@ -24,7 +24,8 @@ SAMPLE_DATA = {'Betim': {'AB Test': 4, 'Ongoing edit': 2, 'review/re-edit': 1, '
 curr_month = datetime.now().date().strftime('%B')
 curr_year = datetime.now().date().strftime('%Y')
 
-def populate_doc():
+
+def create_worksheets():
     for month in MONTHS:
         worksheet_name = f'{month} {curr_year}'
         try:
@@ -34,6 +35,7 @@ def populate_doc():
 
 
 curr_worksheet = sheet.worksheet(f'{curr_month} {curr_year}')
+
 
 def update_tracker():
     tracker_worksheet = sheet.worksheet('Tracker')
