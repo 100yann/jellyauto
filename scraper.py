@@ -35,46 +35,16 @@ def login():
     time.sleep(2)
 
 
-login()
-
-production_tab = driver.find_element(By.XPATH, '/html/body/div[1]/div/nav/ul/li[3]/a')
-if not production_tab:
-    terminate_scrape('Navbar not found')
-
-production_tab.click()
-time.sleep(1)
-
-
-in_progress_category = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/header/nav/ul/li[3]/h2/a')
-in_progress_category.click()
-time.sleep(8)
-
-# add filters to filter the orders
-filters = driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/section/section/main/div/div/div[1]/section/div[1]/div[2]').click()
-
-editors = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/div/div[1]/input')
-editors_list = {'P B': 'Patriot Bytyqi', 'H S': 'Hani Sinno', 'B': 'Betim Mehani', 'S K': 'Stoyan Kolev'}
-
-for val in editors_list.values():
-    editors.send_keys(val)
-    editors.send_keys(Keys.ENTER)
-    time.sleep(1)
-
 # Scroll to bottom of page so all orders are loaded
-orders_container = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[1]/div/div/div/div/div/table/tbody')
-action = webdriver.ActionChains(driver)
-for i in range(0, 3):
-    action.move_to_element(orders_container)
-    action.perform()
-    time.sleep(2)
+def scroll_to_bottom(element):
+    action = webdriver.ActionChains(driver)
+    for i in range(0, 3):
+        action.move_to_element(element)
+        action.perform()
+        time.sleep(2)
 
 
-orders_html = orders_container.get_attribute("outerHTML")
-soup = BeautifulSoup(orders_html, 'html.parser')
-table_rows = soup.find_all('tr')
-
-final_data = {}
-if table_rows:
+def get_order_data(table_rows):
     for row in table_rows:
         row_data = row.find_all('td')
         editor_initials = row_data[13].find('span').get_text().strip()
@@ -92,7 +62,63 @@ if table_rows:
             final_data[editor][video_status]['num'] = final_data[editor][video_status].get('num', 0) + 1
             final_data[editor][video_status]['videos'] = final_data[editor][video_status].get('videos', '') + f'{video_name}, ' 
             final_data[editor]['total_videos'] = final_data[editor].get('total_videos', 0) + 1
+        
+login()
+
+production_tab = driver.find_element(By.XPATH, '/html/body/div[1]/div/nav/ul/li[3]/a')
+if not production_tab:
+    terminate_scrape('Navbar not found')
+
+production_tab.click()
+time.sleep(1)
+
+# get orders in the in progress page
+in_progress_category = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/header/nav/ul/li[3]/h2/a')
+in_progress_category.click()
+time.sleep(8)
+
+# add filters to filter the orders
+filters = driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/section/section/main/div/div/div[1]/section/div[1]/div[2]').click()
+
+editors = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/div/div[1]/input')
+editors_list = {'P B': 'Patriot Bytyqi', 'H S': 'Hani Sinno', 'B': 'Betim Mehani', 'S K': 'Stoyan Kolev'}
+
+for val in editors_list.values():
+    editors.send_keys(val)
+    editors.send_keys(Keys.ENTER)
+    time.sleep(1)
+
+# Scroll to bottom of page so all orders are loaded
+orders_container = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[1]/div/div/div/div/div/table/tbody')
+scroll_to_bottom(orders_container)
+
+orders_html = orders_container.get_attribute("outerHTML")
+soup = BeautifulSoup(orders_html, 'html.parser')
+table_rows = soup.find_all('tr')
+
+
+final_data = {}
+if table_rows:
+    get_order_data(table_rows)
 else:
-    terminate_scrape('No orders found')
+    terminate_scrape('No orders found in progress')
+
+
+# get orders on the ab tests page
+ab_test_page = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/header/nav/ul/li[4]/h2/a')
+ab_test_page.click()
+time.sleep(6)
+
+orders_container = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[1]/div/div/div/div/div/table/tbody')
+scroll_to_bottom(orders_container)
+
+orders_html = orders_container.get_attribute("outerHTML")
+soup = BeautifulSoup(orders_html, 'html.parser')
+table_rows = soup.find_all('tr')
+
+if table_rows:
+    get_order_data(table_rows)
+else:
+    terminate_scrape('No orders found in ab test')
 
 print(final_data)
