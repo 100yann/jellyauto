@@ -53,10 +53,10 @@ time.sleep(8)
 filters = driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/section/section/main/div/div/div[1]/section/div[1]/div[2]').click()
 
 editors = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/div/div[1]/input')
-editors_list = ['Patriot Bytyqi', 'Hani Sinno', 'Betim Mehani', 'Stoyan Kolev']
+editors_list = {'P B': 'Patriot Bytyqi', 'H S': 'Hani Sinno', 'B': 'Betim Mehani', 'S K': 'Stoyan Kolev'}
 
-for i in editors_list:
-    editors.send_keys(i)
+for val in editors_list.values():
+    editors.send_keys(val)
     editors.send_keys(Keys.ENTER)
     time.sleep(1)
 
@@ -72,4 +72,27 @@ for i in range(0, 3):
 orders_html = orders_container.get_attribute("outerHTML")
 soup = BeautifulSoup(orders_html, 'html.parser')
 table_rows = soup.find_all('tr')
-    
+
+final_data = {}
+if table_rows:
+    for row in table_rows:
+        row_data = row.find_all('td')
+        editor_initials = row_data[13].find('span').get_text().strip()
+
+        # work on data only if editor matches the editors in the editors_list
+        if editor_initials in editors_list:
+            editor = editors_list[editor_initials]
+            video_name = row_data[1].find('span', class_='text-sm')['data-original-title'].strip()
+            video_status = row_data[5].find('span').get_text().strip()
+
+            if editor not in final_data:
+                final_data[editor] = {}
+            if not final_data[editor].get(video_status, 0):
+                final_data[editor][video_status] = {}
+            final_data[editor][video_status]['num'] = final_data[editor][video_status].get('num', 0) + 1
+            final_data[editor][video_status]['videos'] = final_data[editor][video_status].get('videos', '') + f'{video_name}, ' 
+            final_data[editor]['total_videos'] = final_data[editor].get('total_videos', 0) + 1
+else:
+    terminate_scrape('No orders found')
+
+print(final_data)
