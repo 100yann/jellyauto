@@ -69,4 +69,7 @@ for i in range(0, 3):
     time.sleep(2)
 
 
-
+orders_html = orders_container.get_attribute("outerHTML")
+soup = BeautifulSoup(orders_html, 'html.parser')
+table_rows = soup.find_all('tr')
+    
