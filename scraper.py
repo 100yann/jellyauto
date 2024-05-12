@@ -65,9 +65,11 @@ def scrape_data():
 
                 if not final_data[editor].get(video_status, 0):
                     final_data[editor][video_status] = {}
+
                 final_data[editor][video_status]['num'] = final_data[editor][video_status].get('num', 0) + 1
-                final_data[editor][video_status]['videos'] = final_data[editor][video_status].get('videos', '') + f'{video_name}, ' 
-                final_data[editor]['total_videos']['num'] = final_data[editor].get('total_videos', 0) + 1
+                final_data[editor][video_status].setdefault('videos', []).append(video_name)
+                final_data[editor]['total_videos'] = final_data[editor].get('total_videos', {})
+                final_data[editor]['total_videos']['num'] = final_data[editor]['total_videos'].get('num', 0) + 1
     login()
 
     production_tab = driver.find_element(By.XPATH, '/html/body/div[1]/div/nav/ul/li[3]/a')
