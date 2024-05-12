@@ -67,8 +67,7 @@ def scrape_data():
                     final_data[editor][video_status] = {}
                 final_data[editor][video_status]['num'] = final_data[editor][video_status].get('num', 0) + 1
                 final_data[editor][video_status]['videos'] = final_data[editor][video_status].get('videos', '') + f'{video_name}, ' 
-                final_data[editor]['total_videos'] = final_data[editor].get('total_videos', 0) + 1
-            
+                final_data[editor]['total_videos']['num'] = final_data[editor].get('total_videos', 0) + 1
     login()
 
     production_tab = driver.find_element(By.XPATH, '/html/body/div[1]/div/nav/ul/li[3]/a')
@@ -126,6 +125,12 @@ def scrape_data():
         get_order_data(table_rows)
     else:
         terminate_scrape('No orders found in ab test')
+
+    necessary_columns = ['Ready to edit', 'Ongoing edit', 'review/re-edit', 'AB Test']
+    for editor in final_data:
+        for col in necessary_columns:
+            if col not in final_data[editor]:
+                final_data[editor][col] = {'num': 0}
 
     return final_data
 
