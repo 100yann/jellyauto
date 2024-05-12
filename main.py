@@ -41,16 +41,21 @@ data = {'Hani Sinno': {'review/re-edit': {'num': 3, 'videos': "Giving Horrible A
 
 def update_tracker():
     tracker_worksheet = sheet.worksheet('Tracker')
-    row = 2
+    cells = tracker_worksheet.range('A2:F5')
+
+    cells_data = [] 
 
     for editor in EDITORS:
-        starting_col = 65 # ASCII for letter A
-        tracker_worksheet.update_acell(f'{chr(starting_col)}{row}', value=editor)
+        cells_data.append(editor)
         for col in PRODUCTIVITY_HEADERS:
-            starting_col += 1
-            tracker_worksheet.update_acell(f'{chr(starting_col)}{row}', value=data[editor][col]['num'])
-        row += 1
+            cells_data.append(data[editor][col]['num'])
 
+    index = 0
+    for cell in cells:
+        cell.value = cells_data[index]
+        index += 1
+
+    tracker_worksheet.update_cells(cells)
 
 def display_total_videos():
     row = 1
@@ -61,7 +66,7 @@ def display_total_videos():
         headers_data.append(f'{editor} total videos')
         headers_data.append(data[editor]['total_videos']['num'])
         headers_data.append('') # leaves an empty cell inbetween editors
-        
+
     index = 0
     for cell in header_cells:
         cell.value = headers_data[index]
@@ -69,19 +74,6 @@ def display_total_videos():
 
     curr_worksheet.update_cells(header_cells)
 
-        # for status in data[editor]:
-        #     curr_worksheet.update_acell(f'{column}{row}', status)
-        #     row += 1
-        #     try:
-        #         videos_to_list = data[editor][status]['videos'].split(', ')
-        #     except KeyError:
-        #         continue
-        #     else:
-        #         for video in videos_to_list:
-        #             curr_worksheet.update_acell(f'{column}{row}', video)
-        #             row += 1
 
-
-
-# update_tracker()
-display_total_videos()
+update_tracker()
+# display_total_videos()
