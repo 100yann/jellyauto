@@ -2,3 +2,4 @@ credentials.json
 output.csv
 main2.py
 /venv
+/__pycache__
