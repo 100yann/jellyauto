@@ -55,19 +55,13 @@ def scrape_data():
                 video_name = row_data[1].find('span', class_='text-sm')['data-original-title'].strip()
                 video_status = row_data[5].find('span').get_text().strip()
 
-                if editor not in final_data:
-                    final_data[editor] = {}
-
                 if "AB" in video_status or 'In Small re-edit' in video_status:
                     video_status = "AB Test"
                 elif "Ongoing review" in video_status or "Ongoing re-edit" in video_status:
                     video_status = "review/re-edit"
 
-                if not final_data[editor].get(video_status, 0):
-                    final_data[editor][video_status] = {}
-
-                final_data[editor][video_status]['num'] = final_data[editor][video_status].get('num', 0) + 1
-                final_data[editor][video_status].setdefault('videos', []).append(video_name)
+                final_data[editor][video_status]['num'] += 1
+                final_data[editor][video_status]['videos'].append(video_name)
                 final_data[editor]['total_videos'] = final_data[editor].get('total_videos', {})
                 final_data[editor]['total_videos']['num'] = final_data[editor]['total_videos'].get('num', 0) + 1
     login()
@@ -103,8 +97,11 @@ def scrape_data():
     soup = BeautifulSoup(orders_html, 'html.parser')
     table_rows = soup.find_all('tr')
 
+    VIDEO_STATUSES = ['Ready to edit', 'Ongoing edit', 'review/re-edit', 'AB Test']
+    EDITORS = ['Hani Sinno', 'Patriot Bytyqi', 'Betim Mehani', 'Stoyan Kolev']
 
-    final_data = {}
+    final_data = {editor: {status: {'num': 0, 'videos': []} for status in VIDEO_STATUSES} for editor in EDITORS}
+
     if table_rows:
         get_order_data(table_rows)
     else:
