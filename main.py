@@ -61,7 +61,8 @@ def update_tracker():
 
 def add_videos_to_sheet():
     column = 65 # ascii for first column A
-    
+    curr_worksheet.batch_clear(['A3:T50'])
+
     for editor in data.keys():
         for status in data[editor]:
             if status == 'total_videos':
