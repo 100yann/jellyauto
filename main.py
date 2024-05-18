@@ -34,11 +34,11 @@ def create_worksheets():
 
 curr_worksheet = sheet.worksheet(f'{curr_month} {curr_year}')
 # data = scrape_data()
-data = {'Hani Sinno': {'Ready to edit': {'num': 6, 'videos': ['Snap from FB - These Amazon Products Should Be ILLEGAL', 'Snap from FB - Reacting To And Making Overpriced Art', 'Snap from FB - The Trad Wife Epidemic Is Insane', 'I Bought DISCONTINUED Products From Our Childhood', 'Snap from FB - Part 1 - I Bought DISCONTINUED Products From Our Childhood', 'Snap from FB - Part 2 - I Bought DISCONTINUED Products From Our Childhood']}, 'Ongoing edit': {'num': 2, 'videos': ['Driving Across America', 'Reacting To And Making Overpriced Art']}, 'review/re-edit': {'num': 2, 'videos': ['Giving Horrible Advice To Redditors', 'RE-EDIT : Entitled Karens That Were Called Out On Social Media - REACTION']}, 'AB Test': {'num': 5, 'videos': ['AB to relaunch_New Edit - Tiktok’s PSYCHO Ex Girlfriends', 'AB to relaunch_Couples Content Makes Me Cringe', "Reacting to My Old Tiktok's | Cringe", 'Drunk Drag!', 'The Trad Wife Epidemic Is Insane']}, 'Delivered': {'num': 0, 'videos': []}, 'total_videos': {'num': 15}},
-        'Patriot Bytyqi': {'Ready to edit': {'num': 4, 'videos': ['petty divorce drama that made it to AITA - REACTION', 'confessions that cancelled the wedding - REACTION', 'Snap - 5 Minute Crafts that Make My Brain Hurt', 'Snap from FB - influencers that thought they were the main character - REACTION']}, 'Ongoing edit': {'num': 2, 'videos': ['FB to Snap - Bad honeymoons that got EXPOSED on TikTok - REACTION', 'FB to Snap - Watching TikToks until I find the world’s craziest Ex - REACTION']}, 'review/re-edit': {'num': 1, 'videos': ['influencers that thought they were the main character - REACTION']}, 'AB Test': {'num': 2, 'videos': ['Bad honeymoons that got EXPOSED on TikTok - REACTION', 'Watching TikToks until I find the world’s craziest Ex - REACTION']}, 'Delivered': {'num': 0, 'videos': []}, 'total_videos': {'num': 9}}, 
-        'Betim Mehani': {'Ready to edit': {'num': 3, 'videos': ['Dumb People That Need To Get Off Social Media - REACTION', 'RE-EDIT : Entitled Bridezillas And Their Insane Demands - REACTION', "TikTok's that Need to Stay in 2021"]}, 'Ongoing edit': {'num': 3, 'videos': ["What You Didn’t Know About America's Most INFAMOUS Serial Killer", 'Snap from FB - This Show Needs To Be Cancelled…', 'FB to Snap - call the whole wedding off right now! - REACTION']}, 'review/re-edit': {'num': 3, 'videos': ['Reacting To Your INSANE Wedding Stories - REACTION', 'call the whole wedding off right now! - REACTION', 'This Show Needs To Be Cancelled…']}, 'AB Test': {'num': 3, 'videos': ['TIKtok Is Rotting My Brain…', "LOCKED INSIDE AMERICA'S MOST HAUNTED ASYLUM ft @CelinaSpookyBoo | PART ONE", 'WE DID A SEANCE IN THE MOST HAUNTED CITY IN AMERICA Ft @CelinaSpookyBoo | PART 1']}, 'Delivered': {'num': 0, 'videos': []}, 'total_videos': {'num': 12}}, 
-        'Stoyan Kolev': {'Ready to edit': {'num': 1, 'videos': ['what did I just read?! judging your AITA stories']}, 'Ongoing edit': {'num': 0, 'videos': []}, 'review/re-edit': {'num': 0, 'videos': []}, 'AB Test': {'num': 1, 'videos': ['Craziest People That OBJECTED At Weddings - REACTION']}, 'Delivered': {'num': 0, 'videos': []}, 'total_videos': {'num': 2}}
-        }
+data = {'Hani Sinno': {'Ready to edit': {'num': 6, 'videos': {'Snap from FB - These Amazon Products Should Be ILLEGAL': 'https://core.jellysmack.com/#/productionTaskDetails/125234/brief', 'Snap from FB - Reacting To And Making Overpriced Art': 'https://core.jellysmack.com/#/productionTaskDetails/127404/brief', 'Snap from FB - The Trad Wife Epidemic Is Insane': 'https://core.jellysmack.com/#/productionTaskDetails/127697/brief', 'Snap from FB - Part 1 - I Bought DISCONTINUED Products From Our Childhood': 'https://core.jellysmack.com/#/productionTaskDetails/128606/brief', 'Snap from FB - Part 2 - I Bought DISCONTINUED Products From Our Childhood': 'https://core.jellysmack.com/#/productionTaskDetails/128607/brief', 'Snap from FB - I Bought Every VIRAL Wig Off Amazon': 'https://core.jellysmack.com/#/productionTaskDetails/129105/brief'}}, 'Ongoing edit': {'num': 3, 'videos': {'Driving Across America': 'https://core.jellysmack.com/#/productionTaskDetails/122613/brief', 'I Bought DISCONTINUED Products From Our Childhood': 'https://core.jellysmack.com/#/productionTaskDetails/128605/brief', 'I Bought Every VIRAL Wig Off Amazon': 'https://core.jellysmack.com/#/productionTaskDetails/129104/brief'}}, 'review/re-edit': {'num': 1, 'videos': {'Reacting To And Making Overpriced Art': 'https://core.jellysmack.com/#/productionTaskDetails/127402/brief'}}, 'AB Test': {'num': 0, 'videos': {}}, 'total_videos': {'num': 10}}, 
+        'Patriot Bytyqi': {'Ready to edit': {'num': 3, 'videos': {'confessions that cancelled the wedding - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/128587/brief', 'Snap - 5 Minute Crafts that Make My Brain Hurt': 'https://core.jellysmack.com/#/productionTaskDetails/128608/brief', 'Snap from FB - that came out of nowhere ! - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/129231/brief'}}, 'Ongoing edit': {'num': 2, 'videos': {'petty divorce drama that made it to AITA - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/127393/brief', 'that came out of nowhere ! - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/129109/brief'}}, 'review/re-edit': {'num': 1, 'videos': {'FB to Snap - Part 1 - Bad honeymoons that got EXPOSED on TikTok - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/127782/brief'}}, 'AB Test': {'num': 0, 'videos': {}}, 'total_videos': {'num': 6}}, 
+        'Betim Mehani': {'Ready to edit': {'num': 3, 'videos': {'RE-EDIT : Entitled Bridezillas And Their Insane Demands - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/128576/brief', "TikTok's that Need to Stay in 2021": 'https://core.jellysmack.com/#/productionTaskDetails/128610/brief', 'RE-EDIT : Bridezillas That Are On Another Level #entitled - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/129100/brief'}}, 'Ongoing edit': {'num': 2, 'videos': {'Dumb People That Need To Get Off Social Media - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/125995/brief', 'Snap from FB - This Show Needs To Be Cancelled…': 'https://core.jellysmack.com/#/productionTaskDetails/128083/brief'}}, 'review/re-edit': {'num': 3, 'videos': {"What You Didn’t Know About America's Most INFAMOUS Serial Killer": 'https://core.jellysmack.com/#/productionTaskDetails/127403/brief', 'This Show Needs To Be Cancelled…': 'https://core.jellysmack.com/#/productionTaskDetails/128082/brief', 'FB to Snap - call the whole wedding off right now! - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/128102/brief'}}, 'AB Test': {'num': 0, 'videos': {}}, 'total_videos': {'num': 8}}, 
+        'Stoyan Kolev': {'Ready to edit': {'num': 1, 'videos': {'Snap from FB - Every video is a crazier Karen - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/129230/brief'}}, 'Ongoing edit': {'num': 2, 'videos': {'Every video is a crazier Karen - REACTION': 'https://core.jellysmack.com/#/productionTaskDetails/129097/brief', "Let's Go Down The Toxic Tik Tok Rabbit Hole - REACTION": 'https://core.jellysmack.com/#/productionTaskDetails/129099/brief'}}, 'review/re-edit': {'num': 0, 'videos': {}}, 'AB Test': {'num': 0, 'videos': {}}, 'total_videos': {'num': 3}}}
+
 
 def update_tracker():
     tracker_worksheet = sheet.worksheet('Tracker')
@@ -61,9 +61,11 @@ def update_tracker():
 
 def add_videos_to_sheet():
     column = 65 # ascii for first column A
+    
     for editor in data.keys():
         for status in data[editor]:
             if status == 'total_videos':
+                column += 1
                 continue
             num_videos = data[editor][status]['num']
             if num_videos == 0:
@@ -71,12 +73,12 @@ def add_videos_to_sheet():
                 continue
             videos = data[editor][status]['videos']
             column_cells = curr_worksheet.range(f'{chr(column)}3:{chr(column)}{num_videos + 2}')
-            index = 0
-            for cell in column_cells:
-                cell.value = videos[index]
-                index += 1
-            curr_worksheet.update_cells(column_cells)
+            for index, video_name in enumerate(videos):
+                video_url = videos[video_name]
+                column_cells[index].value = f'=HYPERLINK("{video_url}", "{video_name}")'
+            curr_worksheet.update_cells(column_cells, value_input_option='USER_ENTERED')
             column += 1
 
 
 add_videos_to_sheet()
+# update_tracker()
