@@ -25,7 +25,7 @@ def login():
     time.sleep(2)
 
 
-def apply_filters():
+def apply_filters(by_creator=False):
     filters = driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/section/section/main/div/div/div[1]/section/div[1]/div[2]').click()
     editors = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[2]/div/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/div/div[1]/input')
 
@@ -34,6 +34,15 @@ def apply_filters():
         time.sleep(1)
         editors.send_keys(Keys.ENTER)
         time.sleep(1)
+    
+    if by_creator:
+        creator_filter = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[2]/div/div[2]/div[1]/div/div[2]/div[1]/div[2]/div/div/div[1]/input')
+        creator_filter.send_keys('Charlotte Dobre')
+        time.sleep(0.5)
+        creator_filter.send_keys(Keys.ENTER)
+        creator_filter.send_keys('KallMeKris')
+        time.sleep(0.5)
+        creator_filter.send_keys(Keys.ENTER)
 
 
 def scroll_to_bottom(element, amount):
@@ -136,4 +145,17 @@ def scrape_data():
     return final_data
 
 
+def get_stock():
+    driver.get('https://core.jellysmack.com/#/productionTask/stock')
+    time.sleep(1)
 
+    login()
+    time.sleep(10)
+    apply_filters(by_creator=True)
+    time.sleep(5)
+    orders_container = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/section/section/main/div/div/div[1]/div/div/div/div/div/table/tbody')
+    scroll_to_bottom(orders_container, 8)
+
+
+if __name__ == "__main__":
+    get_stock()
