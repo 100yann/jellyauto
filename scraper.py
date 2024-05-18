@@ -54,14 +54,16 @@ def scrape_data():
                 editor = editors_list[editor_initials]
                 video_name = row_data[1].find('span', class_='text-sm')['data-original-title'].strip()
                 video_status = row_data[5].find('span').get_text().strip()
+                video_url = row_data[1].select_one('div > a')['href']
 
+                print(video_url)
                 if "AB" in video_status or 'In Small re-edit' in video_status:
                     video_status = "AB Test"
                 elif "Ongoing review" in video_status or "Ongoing re-edit" in video_status:
                     video_status = "review/re-edit"
 
                 final_data[editor][video_status]['num'] += 1
-                final_data[editor][video_status]['videos'].append(video_name)
+                final_data[editor][video_status]['videos'][video_name] = f'https://core.jellysmack.com/{video_url}'
                 final_data[editor]['total_videos'] = final_data[editor].get('total_videos', {})
                 final_data[editor]['total_videos']['num'] = final_data[editor]['total_videos'].get('num', 0) + 1
     login()
@@ -100,7 +102,7 @@ def scrape_data():
     VIDEO_STATUSES = ['Ready to edit', 'Ongoing edit', 'review/re-edit', 'AB Test']
     EDITORS = ['Hani Sinno', 'Patriot Bytyqi', 'Betim Mehani', 'Stoyan Kolev']
 
-    final_data = {editor: {status: {'num': 0, 'videos': []} for status in VIDEO_STATUSES} for editor in EDITORS}
+    final_data = {editor: {status: {'num': 0, 'videos': {}} for status in VIDEO_STATUSES} for editor in EDITORS}
 
     if table_rows:
         get_order_data(table_rows)
@@ -124,12 +126,6 @@ def scrape_data():
         get_order_data(table_rows)
     else:
         terminate_scrape('No orders found in ab test')
-
-    necessary_columns = ['Ready to edit', 'Ongoing edit', 'review/re-edit', 'AB Test']
-    for editor in final_data:
-        for col in necessary_columns:
-            if col not in final_data[editor]:
-                final_data[editor][col] = {'num': 0}
 
     return final_data
 
