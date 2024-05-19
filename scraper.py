@@ -5,14 +5,17 @@ from selenium.common.exceptions import NoSuchElementException
 import time 
 import os
 from bs4 import BeautifulSoup
+from selenium.webdriver.chrome.service import Service
+
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option("detach", True)
 options.add_argument("--start-maximized")
-driver = webdriver.Chrome(options=options)
+chrome_driver_path = "/home/stoyan/chromedriver_linux64/chromedriver"
+service = Service(executable_path=chrome_driver_path)
 
+driver = webdriver.Chrome(service=service, options=options)
 EDITORS = {'P B': 'Patriot Bytyqi', 'H S': 'Hani Sinno', 'B': 'Betim Mehani', 'S K': 'Stoyan Kolev'}
-
 
 def login():
     login = driver.find_element(By.ID, "loginInput")
@@ -157,5 +160,4 @@ def get_stock():
     scroll_to_bottom(orders_container, 8)
 
 
-if __name__ == "__main__":
-    get_stock()
+get_stock()
